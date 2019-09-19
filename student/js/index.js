@@ -1,19 +1,30 @@
 $(document).ready(function(){
-    $("button").click(function(){
+    $("#manufacturerNames").click(function(){
       $.ajax({url: "/manufacturerNames", success: function(result){
         $("#main").html("");
         for(manufacturer of result){
-          manufacturer_listing(manufacturer)
+          manufacturer_names(manufacturer)
         }
       }});
     });
   });
 
   $(document).ready(function(){
+    $("#manufacturers").click(function(){
+      $.ajax({url: "/manufacturers", success: function(result){
+        $("#main").html("");
+        for(manufacturer of result){
+          manufacturer_details(manufacturer)
+        }
+      }});
+    });
+  });  
+
+  $(document).ready(function(){
       $.ajax({url: "/cars", success: function(result){
         $("#main").html("");
         for(car of result){
-          car_listing(car);
+          car_details(car);
           console.log(car);
         }
       }});
@@ -21,7 +32,7 @@ $(document).ready(function(){
 
 var list = document.getElementById("main");
 
-function car_listing(car) {
+function car_details(car) {
     var card = document.createElement("div");
     card.className += "listing-card";
     var title = document.createElement("h3");
@@ -47,9 +58,23 @@ function car_listing(car) {
     list.appendChild(card);
 }
 
-function manufacturer_listing(manufacturer){
+function manufacturer_names(manufacturer){
   var card = document.createElement("div");
   card.textContent=manufacturer;
+  list.appendChild(card);
+}
+
+function manufacturer_details(manufacturer){
+  var card = document.createElement("div");
+  var name = cp();
+  name.textContent = "Name: "+manufacturer.name;
+  var country = cp();
+  country.textContent = "Country: "+manufacturer.country;
+  var founded = cp();
+  founded.textContent = "Founded: "+manufacturer.founded;
+  card.appendChild(name);
+  card.appendChild(country);
+  card.appendChild(founded);
   list.appendChild(card);
 }
 
