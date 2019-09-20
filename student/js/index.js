@@ -1,4 +1,5 @@
 $("#manufacturerNames").click(function () {
+  $("#index").hide();
   $.ajax({
     url: "/manufacturerNames", success: function (result) {
       $("#main").html("");
@@ -10,9 +11,9 @@ $("#manufacturerNames").click(function () {
 });
 
 $("#manufacturers").click(function () {
+  $("#index").hide();
   $.ajax({
     url: "/manufacturers", success: function (result) {
-      $("#index").hide();
       $("#main").html("");
       for (manufacturer of result) {
         manufacturer_details(manufacturer)
@@ -22,6 +23,7 @@ $("#manufacturers").click(function () {
 });
 
 $("#home").click(function () {
+  $("#index").show();
   $.ajax({
     url: "/", success: function (result) {
       $("#main").html("");
@@ -29,7 +31,26 @@ $("#home").click(function () {
   });
 });
 
+$(function() {
+  // contact form animations
+  $('#addcar').click(function() {
+    $('#contactForm').fadeToggle();
+  })
+  $(document).mouseup(function (e) {
+    var container = $("#contactForm");
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+        container.fadeOut();
+    }
+  });
+  
+});
+
+
 $("#cars").click(function () {
+  $("#index").hide();
   $.ajax({
     url: "/cars", success: function (result) {
       $("#main").html("");
