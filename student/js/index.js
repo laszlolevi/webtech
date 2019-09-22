@@ -107,30 +107,37 @@ function addcar() {
   var name_p = cp();
   name_p.textContent = "name:";
   var name_input = cinput();
+  name_input.id = "name";
 
   var consumption_p = cp();
   consumption_p.textContent = "consumption:";
   var consumption_input = cinput();
+  consumption_input.id = "consumption";
 
   var color_p = cp();
   color_p.textContent = "color:";
   var color_input = cinput();
+  color_input.id = "color";
 
   var manufacturer_p = cp();
   manufacturer_p.textContent = "manufacturer:";
   var manufacturer_input = cinput();
+  manufacturer_input.id = "manufacturer";
 
   var year_p = cp();
   year_p.textContent = "year:";
   var year_input = cinput();
+  year_input.id = "year";
 
   var available_p = cp();
   available_p.textContent = "available:";
   var available_input = cinput();
+  available_input.id = "available";
 
   var horsepower_p = cp();
   horsepower_p.textContent = "horsepower:";
   var horsepower_input = cinput();
+  horsepower_input.id = "horsepower";
 
   form.appendChild(name_p);
   form.appendChild(name_input);
@@ -153,24 +160,38 @@ function addcar() {
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("addcar");
+var addcar_open = document.getElementById("addcar");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var cancel = document.getElementById("cancel");
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
+addcar_open.onclick = function () {
   modal.style.display = "block";
   addcar();
 }
 
+function ge(id) {
+  return document.getElementById(id).value;
+}
+
+$("#submit").click(function () {
+  var car = { "name": ge("name"), "consumption": ge("consumption"), "color": ge("color"), "manufacturer": ge("manufacturer"), "year": ge("year"), "available": ge("available"), "horsepower": ge("horsepower") };
+  console.log(car);
+  $.post("/addcar", car, function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
+})
+
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+cancel.onclick = function () {
   modal.style.display = "none";
 }
 
+
+
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
