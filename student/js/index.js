@@ -96,6 +96,59 @@ function cp() {
   return document.createElement("p");
 }
 
+function cinput() {
+  return document.createElement("input");
+}
+
+function addcar() {
+  $("#form").html("");
+  var form = document.getElementById("form");
+
+  var name_p = cp();
+  name_p.textContent = "name:";
+  var name_input = cinput();
+
+  var consumption_p = cp();
+  consumption_p.textContent = "consumption:";
+  var consumption_input = cinput();
+
+  var color_p = cp();
+  color_p.textContent = "color:";
+  var color_input = cinput();
+
+  var manufacturer_p = cp();
+  manufacturer_p.textContent = "manufacturer:";
+  var manufacturer_input = cinput();
+
+  var year_p = cp();
+  year_p.textContent = "year:";
+  var year_input = cinput();
+
+  var available_p = cp();
+  available_p.textContent = "available:";
+  var available_input = cinput();
+
+  var horsepower_p = cp();
+  horsepower_p.textContent = "horsepower:";
+  var horsepower_input = cinput();
+
+  form.appendChild(name_p);
+  form.appendChild(name_input);
+  form.appendChild(consumption_p);
+  form.appendChild(consumption_input);
+  form.appendChild(color_p);
+  form.appendChild(color_input);
+  form.appendChild(manufacturer_p);
+  form.appendChild(manufacturer_input);
+  form.appendChild(year_p);
+  form.appendChild(year_input);
+  form.appendChild(available_p);
+  form.appendChild(available_input);
+  form.appendChild(horsepower_p);
+  form.appendChild(horsepower_input);
+
+}
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -108,6 +161,7 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
+  addcar();
 }
 
 // When the user clicks on <span> (x), close the modal
