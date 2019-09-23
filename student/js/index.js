@@ -8,7 +8,7 @@ $("#manufacturerNames").click(function () {
         let card = document.createElement("p");
         card.textContent = manufacturer;
         $(card).click(function () {
-          document.cookie = "name="+card.textContent;
+          document.cookie = "name=" + card.textContent;
           console.log(document.cookie);
           manufacturer_cookie();
         })
@@ -178,11 +178,40 @@ function addcar() {
 
 }
 
+function addmanufacturer() {
+  $("#form").html("");
+  var form = document.getElementById("form");
+
+  var name_p = cp();
+  name_p.textContent = "name:";
+  var name_input = cinput();
+  name_input.id = "name";
+
+  var country_p = cp();
+  country_p.textContent = "country:";
+  var country_input = cinput();
+  country_input.id = "country";
+
+  var founded_p = cp();
+  founded_p.textContent = "founded:";
+  var founded_input = cinput();
+  founded_input.id = "founded";
+
+  form.appendChild(name_p);
+  form.appendChild(name_input);
+  form.appendChild(country_p);
+  form.appendChild(country_input);
+  form.appendChild(founded_p);
+  form.appendChild(founded_input);
+}
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
 var addcar_open = document.getElementById("addcar");
+
+var addmanufacturer_open = document.getElementById("addmanufacturer");
 
 // Get the <span> element that closes the modal
 var cancel = document.getElementById("cancel");
@@ -191,19 +220,37 @@ var cancel = document.getElementById("cancel");
 addcar_open.onclick = function () {
   modal.style.display = "block";
   addcar();
+  option = "addcar";
+}
+
+addmanufacturer_open.onclick = function () {
+  modal.style.display = "block";
+  addmanufacturer();
+  option = "addmanufacturer";
 }
 
 function ge(id) {
   return document.getElementById(id).value;
 }
 
+let option = null;
+
 $("#submit").click(function () {
-  var car = { "name": ge("name"), "consumption": ge("consumption"), "color": ge("color"), "manufacturer": ge("manufacturer"), "year": ge("year"), "available": ge("available"), "horsepower": ge("horsepower") };
-  console.log(car);
-  $.post("/addcar", car, function (data, status) {
-    alert("Data: " + data + "\nStatus: " + status);
-  });
-})
+  if (option == "addcar") {
+    var car = { "name": ge("name"), "consumption": ge("consumption"), "color": ge("color"), "manufacturer": ge("manufacturer"), "year": ge("year"), "available": ge("available"), "horsepower": ge("horsepower") };
+    console.log(car);
+    $.post("/addcar", car, function (data, status) {
+      alert("\nStatus: " + status);
+    });
+  }
+  else {
+    var manufacturer = { "name": ge("name"), "country": ge("country"), "founded": ge("founded") };
+    console.log(manufacturer);
+    $.post("/addManufacturers", manufacturer, function (data, status) {
+      alert("\nStatus: " + status);
+    });
+  }
+});
 
 // When the user clicks on <span> (x), close the modal
 cancel.onclick = function () {
