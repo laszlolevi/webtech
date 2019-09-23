@@ -3,12 +3,31 @@ $("#manufacturerNames").click(function () {
   $.ajax({
     url: "/manufacturerNames", success: function (result) {
       $("#main").html("");
+      let cars = document.createElement("div");
       for (manufacturer of result) {
-        manufacturer_names(manufacturer)
+        let card = document.createElement("p");
+        card.textContent = manufacturer;
+        $(card).click(function () {
+          document.cookie = card.textContent;
+          console.log(document.cookie);
+        })
+        cars.appendChild(card);
       }
+      list.appendChild(cars);
     }
   });
 });
+
+function manufacturer_names(manufacturer) {
+  var card = document.createElement("p");
+  card.textContent = manufacturer;
+  $(card).click(function () {
+    console.log("asdf");
+    document.cookie = card.textContent;
+
+  })
+  return card;
+}
 
 $("#manufacturers").click(function () {
   $("#index").hide();
@@ -73,9 +92,9 @@ function car_details(car) {
 }
 
 function manufacturer_names(manufacturer) {
-  var card = document.createElement("div");
+  var card = document.createElement("p");
   card.textContent = manufacturer;
-  list.appendChild(card);
+  return card;
 }
 
 function manufacturer_details(manufacturer) {
@@ -178,7 +197,7 @@ function ge(id) {
 $("#submit").click(function () {
   var car = { "name": ge("name"), "consumption": ge("consumption"), "color": ge("color"), "manufacturer": ge("manufacturer"), "year": ge("year"), "available": ge("available"), "horsepower": ge("horsepower") };
   console.log(car);
-  $.post("/addcar", car, function(data, status){
+  $.post("/addcar", car, function (data, status) {
     alert("Data: " + data + "\nStatus: " + status);
   });
 })
