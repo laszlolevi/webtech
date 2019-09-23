@@ -8,8 +8,9 @@ $("#manufacturerNames").click(function () {
         let card = document.createElement("p");
         card.textContent = manufacturer;
         $(card).click(function () {
-          document.cookie = card.textContent;
+          document.cookie = "name="+card.textContent;
           console.log(document.cookie);
+          manufacturer_cookie();
         })
         cars.appendChild(card);
       }
@@ -18,15 +19,17 @@ $("#manufacturerNames").click(function () {
   });
 });
 
-function manufacturer_names(manufacturer) {
-  var card = document.createElement("p");
-  card.textContent = manufacturer;
-  $(card).click(function () {
-    console.log("asdf");
-    document.cookie = card.textContent;
-
-  })
-  return card;
+function manufacturer_cookie() {
+  $("#index").hide();
+  $.ajax({
+    url: "/manufacturer", success: function (result) {
+      $("#main").html("");
+      for (car of result) {
+        car_details(car);
+        console.log(car);
+      }
+    }
+  });
 }
 
 $("#manufacturers").click(function () {
