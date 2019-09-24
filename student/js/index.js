@@ -7,6 +7,7 @@ $("#manufacturerNames").click(function () {
       for (manufacturer of result) {
         let card = document.createElement("p");
         card.textContent = manufacturer;
+        card.className="listing-card";
         $(card).click(function () {
           document.cookie = "name=" + card.textContent;
           console.log(document.cookie);
@@ -71,8 +72,7 @@ var list = document.getElementById("main");
 function car_details(car) {
   var card = document.createElement("div");
   card.className += "listing-card";
-  var title = document.createElement("h3");
-  title.className += "mid";
+  var title = document.createElement("h1");
   title.textContent = car.manufacturer + " ";
   title.textContent += car.name;
   var color = cp();
@@ -102,6 +102,7 @@ function manufacturer_names(manufacturer) {
 
 function manufacturer_details(manufacturer) {
   var card = document.createElement("div");
+  card.className = "listing-card";
   var name = cp();
   name.textContent = "Name: " + manufacturer.name;
   var country = cp();
@@ -241,6 +242,7 @@ $("#submit").click(function () {
     console.log(car);
     $.post("/addcar", car, function (data, status) {
       alert("\nStatus: " + status);
+      modal.style.display = "none";
     });
   }
   else {
@@ -248,6 +250,7 @@ $("#submit").click(function () {
     console.log(manufacturer);
     $.post("/addManufacturers", manufacturer, function (data, status) {
       alert("\nStatus: " + status);
+      modal.style.display = "none";
     });
   }
 });
